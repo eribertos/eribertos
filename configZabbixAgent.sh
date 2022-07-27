@@ -9,5 +9,6 @@ ZABBIX=`getent hosts zabbix |cut -d " " -f1`
         systemctl restart zabbix-agent
         firewall-cmd --new-zone=zabbix --permanent
         firewall-cmd --permanent --zone=zabbix --add-port=10050/tcp
+        firewall-cmd --permanent --zone=zabbix --add-port=10051/tcp
         firewall-cmd --reload
         rm -f /tmp/zabbix.conf
