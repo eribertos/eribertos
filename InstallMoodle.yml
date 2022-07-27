@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  remote_user: root
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Install subscription-manager
+      shell: yum install subscription-manager.x86_64 -y
+
+    - name: Change SELINUX
+      shell: sed -i s/^SELINUX=.*$/SELINUX=disabled/ /etc/selinux/config
+
+    - name: Stop Firewalld
+      service:
+        name: firewalld
+        state: stopped
+        enabled: False
+
+    - name: Install Epel-release
+      ansible.builtin.yum:
+        name: epel-release
+        state: latest
+
+    - name: Update RHEL Family OS packages
+      yum:
+        name: '*'
+        state: latest
