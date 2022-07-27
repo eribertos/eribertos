@@ -39,3 +39,11 @@
       community.mysql.mysql_db:
         name: moodle
         state: present
+
+    - name: Create User Mysql
+      community.mysql.mysql_user:
+        state: present
+        name: moodle
+        password: SUASENHA
+        priv:
+          'moodle.*': 'ALL,GRANT'
