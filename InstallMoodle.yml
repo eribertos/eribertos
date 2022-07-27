@@ -28,9 +28,14 @@
 
     - name: Install package
       ansible.builtin.yum:
-        name: [httpd, mariadb-server, mlocate, vim, net-tools, wget, curl, php, php-cli, php-common, php-fpm, php-gd, php-intl, php-json, php-mbstring, php-mysqlnd, php-opcache, php-pdo, php-xml, php-xmlrpc, php-pecl-zip, php-soap]
+        name: [httpd, mariadb-server, mlocate, vim, net-tools, wget, curl, php, php-cli, php-common, php-fpm, php-gd, php-intl, php-json, php-mbstring, php-mysqlnd, php-opcache, php-pdo, php-xml, php-xmlrpc, php-pecl-zip, php-soap, MySQL-python.x86_64]
 
     - name: Git Checkout
       ansible.builtin.git:
         repo: https://github.com/moodle/moodle.git
         dest: /var/www/moodle
+
+    - name: Create a new database with name moodle
+      community.mysql.mysql_db:
+        name: moodle
+        state: present
